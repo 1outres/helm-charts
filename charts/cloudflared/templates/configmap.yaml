@@ -1,0 +1,17 @@
+{{- range .Values.tunnels }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloudflared-{{ .name }}-config
+data:
+  config.yaml: |
+    tunnel: {{ .name | quote }}
+    credentials-file: /etc/cloudflared/creds/credentials.json
+    metrics: 0.0.0.0:2000
+    no-autoupdate: true
+    ingress:
+    - hostname: {{ .hostname }}
+      service: {{ .service }}
+    - service: http_status:404
+{{- end }}

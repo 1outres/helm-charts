@@ -1,0 +1,4 @@
+tunnels:
+- name: "test"
+  hostname: "example.com"
+  service: ""
