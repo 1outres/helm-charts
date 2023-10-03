@@ -6,7 +6,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ $deployment.name }}-svc
+  name: {{ .name | default $deployment.name }}-svc
 spec:
   selector:
     app: {{ $deployment.name | quote }}
