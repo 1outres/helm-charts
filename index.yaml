@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  cloudflared:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-10-03T01:12:05.531976077Z"
+    description: Cloudflare Tunnel Base
+    digest: b0e0b494d7c2dbd031ee60a1fea7de676f2c636a238cdefc6b123360c0545b26
+    name: cloudflared
+    type: application
+    urls:
+    - https://github.com/cronree-91/helm-charts/releases/download/cloudflared-1.0.0/cloudflared-1.0.0.tgz
+    version: 1.0.0
   mongodb:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -22,4 +33,4 @@ entries:
     urls:
     - https://github.com/cronree-91/helm-charts/releases/download/spring-app-1.0.0/spring-app-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-03T00:53:44.942142799Z"
+generated: "2023-10-03T01:12:05.531980277Z"
