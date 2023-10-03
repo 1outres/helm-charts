@@ -1,0 +1,10 @@
+{{- range .Values.deployments }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ .name }}-cm"
+data:
+  application.yml: |
+    {{ .config | toYaml | nindent 4 | trim }}
+{{- end }}
