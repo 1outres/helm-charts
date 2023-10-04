@@ -14,6 +14,16 @@ entries:
   mongodb:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-10-04T23:45:57.949174027Z"
+    description: MongoDB Base
+    digest: ce821d9c7a7629efd8b7460c51a53444f99fefbb08fd647e3b1358104468d752
+    name: mongodb
+    type: application
+    urls:
+    - https://github.com/cronree-91/helm-charts/releases/download/mongodb-1.0.2/mongodb-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-10-03T23:45:00.837717552Z"
     description: MongoDB Base
     digest: be8e0908cc1f0ada3bddb3a7ddd5b8b0c83640f95d3c085d2161800ab6ff741b
@@ -35,6 +45,16 @@ entries:
   spring-app:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-10-04T23:45:58.100644915Z"
+    description: Spring Application Base
+    digest: 429836825a57169e9155d2da0380afff212b7777fedfe9d3abed145145a3825b
+    name: spring-app
+    type: application
+    urls:
+    - https://github.com/cronree-91/helm-charts/releases/download/spring-app-1.0.2/spring-app-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-10-03T04:29:30.917081261Z"
     description: Spring Application Base
     digest: b0ed9b531d3c6a5c6c1c710c12746c56748ffbe896392fc9afe5a232fe2a37d9
@@ -53,4 +73,4 @@ entries:
     urls:
     - https://github.com/cronree-91/helm-charts/releases/download/spring-app-1.0.0/spring-app-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-03T23:45:00.837735353Z"
+generated: "2023-10-04T23:45:58.100707916Z"
