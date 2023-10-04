@@ -26,6 +26,19 @@ spec:
     systemLog.quiet: false
   statefulSet:
     spec:
+      volumeClaimTemplates:
+        - metadata:
+            name: data-volume
+          spec:
+            resources:
+              requests:
+                storage: 1Gi
+        - metadata:
+            name: logs-volume
+          spec:
+            resources:
+              requests:
+                storage: 1Gi
       template:
         spec:
           containers:
