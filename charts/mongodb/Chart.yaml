@@ -3,5 +3,5 @@ name: mongodb
 description: MongoDB Base
 
 type: application
-version: 1.0.1
+version: 1.0.2
 appVersion: "1.16.0"

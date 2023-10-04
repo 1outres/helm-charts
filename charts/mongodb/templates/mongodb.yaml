@@ -32,18 +32,18 @@ spec:
             - name: mongod
               resources:
                 limits:
-                  cpu: "2"
-                  memory: 4Gi
+                  cpu: "0.9"
+                  memory: 800Mi
                 requests:
-                  cpu: "1"
-                  memory: 1Gi
+                  cpu: "0.25"
+                  memory: 500Mi
             - name: mongodb-agent
               resources:
                 limits:
-                  cpu: "0.2"
-                  memory: 250M
+                  cpu: "0.1"
+                  memory: 200M
                 requests:
-                  cpu: "0.2"
+                  cpu: "0.1"
                   memory: 200M
 ---
 {{- $password := randAlphaNum 24 -}}
