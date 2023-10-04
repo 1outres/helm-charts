@@ -14,6 +14,16 @@ entries:
   mongodb:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-10-04T23:53:12.239216609Z"
+    description: MongoDB Base
+    digest: 86cf012937baa3df041f179a5944326c5f7501f1b5736121763522e249fbbfb4
+    name: mongodb
+    type: application
+    urls:
+    - https://github.com/cronree-91/helm-charts/releases/download/mongodb-1.0.3/mongodb-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-10-04T23:45:57.949174027Z"
     description: MongoDB Base
     digest: ce821d9c7a7629efd8b7460c51a53444f99fefbb08fd647e3b1358104468d752
@@ -73,4 +83,4 @@ entries:
     urls:
     - https://github.com/cronree-91/helm-charts/releases/download/spring-app-1.0.0/spring-app-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-04T23:45:58.100707916Z"
+generated: "2023-10-04T23:53:12.239252513Z"
