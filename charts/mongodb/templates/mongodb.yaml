@@ -1,4 +1,5 @@
 {{- range .Values.mongodbs }}
+{{ $mongodb := .}}
 ---
 apiVersion: mongodbcommunity.mongodb.com/v1
 kind: MongoDBCommunity
@@ -12,15 +13,17 @@ spec:
     authentication:
       modes: ["SCRAM"]
   users:
-    - name: user
-      db: {{ .name }}
+    {{- range .users }}
+    - name: {{ .name  }}
+      db: {{ .db }}
       passwordSecretRef:
-        name: {{ .name }}-mongodb-initial-password
+        name: {{ $mongodb.name }}-{{ .name }}-mongodb-initial-password
       roles:
         - name: dbOwner
-          db: {{ .name }}
-      scramCredentialsSecretName: {{ .name }}-mongodb-scram
-      connectionStringSecretName: {{ .name }}-mongodb-connection-string
+          db: {{ .db }}
+      scramCredentialsSecretName: {{ $mongodb.name }}-{{ .name }}-mongodb-scram
+      connectionStringSecretName: {{ $mongodb.name }}-{{ .name }}-mongodb-connection-string
+    {{- end}}
   additionalMongodConfig:
     storage.wiredTiger.engineConfig.journalCompressor: zlib
     systemLog.quiet: false
