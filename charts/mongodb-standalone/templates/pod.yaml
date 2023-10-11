@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: mongodb
 spec:
-  relicas: 1
+  replicas: 1
   serviceName: "mongodb"
   selector:
     matchLabels:
