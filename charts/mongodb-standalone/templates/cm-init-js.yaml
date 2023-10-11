@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: mongodb-init-js
 data:
-  mongo-init.js:
+  mongo-init.js: |-
     print("Started Adding the Users.");
     db = db.getSiblingDB("admin");
     {{- range .Values.users }}
