@@ -75,6 +75,16 @@ entries:
   mongodb-standalone:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-10-11T02:12:34.767745564Z"
+    description: MongoDB Standalone Base
+    digest: 8fa23fb7a1d8e57b91518d2d2b122cf919987e2981279ecfda52ac2be586333e
+    name: mongodb-standalone
+    type: application
+    urls:
+    - https://github.com/cronree-91/helm-charts/releases/download/mongodb-standalone-1.0.1/mongodb-standalone-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-10-11T02:08:14.290724603Z"
     description: MongoDB Standalone Base
     digest: 859d4403e476ce4b89cbf3d0eb15f161296b0b16c12088e4d148687aab16d0a1
@@ -114,4 +124,4 @@ entries:
     urls:
     - https://github.com/cronree-91/helm-charts/releases/download/spring-app-1.0.0/spring-app-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-11T02:08:14.290749403Z"
+generated: "2023-10-11T02:12:34.767792367Z"
