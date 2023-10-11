@@ -1,0 +1,4 @@
+users:
+- name: "test"
+  db: "test"
+  pass: "test"

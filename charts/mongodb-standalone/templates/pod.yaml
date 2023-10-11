@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: StatefulSet
+metadata:
+  name: mongodb
+spec:
+  relicas: 1
+  serviceName: "mongodb"
+  selector:
+    matchLabels:
+      app: "mongodb"
+  template:
+    metadata:
+      labels:
+        app: "mongodb"
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo:4.4.8
+          ports:
+            - containerPort: 27017
+          args:
+            - "mongod"
+            - "--auth"
+            - "--bind_ip_all"
+          env:
+            - name: "MONGO_INITDB_ROOT_USERNAME"
+              value: "root"
+            - name: "MONGO_INITDB_ROOT_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: password
+            - name: "MONGO_INITDB_DATABASE"
+              value: "admin"
+          volumeMounts:
+            - mountPath: /data/db
+              name: data-volume
+            - mountPath: /docker-entrypoint-initdb.d/mongo-init.js
+              subPath: mongo-init.js
+              name: "init-js"
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: mongodb-pvc
+        - name: init-js
+          configMap:
+            name: mongodb-init-js
