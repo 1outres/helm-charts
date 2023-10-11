@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: apps/v
 kind: StatefulSet
 metadata:
   name: mongodb
