@@ -20,6 +20,7 @@ spec:
         - --email-domain=*
         - --upstream=http://any/
         - --http-address=0.0.0.0:4180
+        - --provider-ca-file=/etc/ssl/self-signed.pem
         env:
         - name: OAUTH2_PROXY_CLIENT_ID
           valueFrom:
@@ -46,3 +47,48 @@ spec:
         ports:
         - containerPort: 4180
           protocol: TCP
+        volumeMounts:
+        - mountPath: /etc/self-signed.pem
+          name: self-signed-cert
+          subPath: self-signed.pem
+      volumes:
+      - name: self-signed-cert
+        configMap:
+          name: self-signed-cert
+          items:
+          - key: self-signed.pem
+            path: self-signed.pem
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: self-signed-cert
+data:
+  self-signed.pem: |
+    -----BEGIN CERTIFICATE-----
+    MIIEhTCCAu2gAwIBAgIBATANBgkqhkiG9w0BAQsFADA0MRIwEAYDVQQKDAlDUk9O
+    LkhPTUUxHjAcBgNVBAMMFUNlcnRpZmljYXRlIEF1dGhvcml0eTAeFw0yMzA5MjUw
+    NDM4NDBaFw00MzA5MjUwNDM4NDBaMDQxEjAQBgNVBAoMCUNST04uSE9NRTEeMBwG
+    A1UEAwwVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MIIBojANBgkqhkiG9w0BAQEFAAOC
+    AY8AMIIBigKCAYEAz90U5rSJfaQCu/YpXmvyymv94LgFqbV8fWojwifmQqWPg8N8
+    Qk4I26Eqd4R5IU4hsPdLwXNA/DzrnJaaRySChyXAhHpUjqYmypwRrTPlKp1ukiO3
+    VPqStCgkFWIThL5w13pnvvcnbCqLDC6ThPiihuKZ7P7AyMtR9rYDrr+GlOe+CCi4
+    Pcu4hOo5WLZvTfoOXnAnKEpUpQmuqk3T2l3DjX2A/1Ve9p2/GLX1Bl6LrtboLHmv
+    Ue8XZ//O7fPgsarYbm1JrsyJ3o+M3P6nIXQk4BKK0Y2CNppGAgn11aFHAb4wnGyS
+    cTGAMPX3rHHIjbnSU2+VVI1yAmMsKwQUBNVvRoTamQKdCPpF60gkYCgzaUqABvMK
+    GPtu9DkFvfDrVwm2dkOmmdVt3V6OoDKMrkIevHHaEfKjeXRKcOR4PbQsYDaGX8Pu
+    3YgB2+KVtNqrKytN9/KM8jsl8MAhaErpJcQ20g40OqU8bLZspOw3DsyFUGfjKSy3
+    VkEvyqs9XL+C2ecJAgMBAAGjgaEwgZ4wHwYDVR0jBBgwFoAUqUdbgu7Ua1jGsilv
+    JplXj8DxqiUwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAcYwHQYDVR0O
+    BBYEFKlHW4Lu1GtYxrIpbyaZV4/A8aolMDsGCCsGAQUFBwEBBC8wLTArBggrBgEF
+    BQcwAYYfaHR0cDovL2lwYS1jYS5jcm9uLmhvbWUvY2Evb2NzcDANBgkqhkiG9w0B
+    AQsFAAOCAYEAEFXCMfBtzylQ/mN7wWXfoveLjqlV+E04fXSfmNJAU0FBDCngv+CU
+    M2wqKm9Dv1S0WYHjtlfh3Jv9h+YFU3GcwfDG5Tn9JQHkMgAkPVLoqd2QRZmQ8Fik
+    iNbv84D6FAkGuOSY2ToUli0Z9WFQ6/p76AjOntw69JtKzrr/eL3QWlXLnsFr0Nc0
+    5hzegK4QLLu4VGeYthNvZRkcDpYwZSA4ElmSmnb0FYWlxTTjUdmu7M0HQJd25D4l
+    Q973gEcfH5CH16DRRe1NqQQBkWjnyCTAdbucjgk4GSHZZNbZFjCbK1l6ynxCRCbR
+    zXA2VuP3YCh8PyZq+pjarhfYLwJSyA1X908uOgbYsLdwbpJwXrSyNpipbvdW/ERD
+    EOP47yLX60KcrHd/fd0kcu1apif8M5KRmekN3AKnL1BCcMYjumq4U7isHFPhV1/0
+    SU4RCfKNLmo8soD0T00K0dh+1spWN61y2lCc6EyQ+c4V0n2PT0m+MsQim4oSn1jd
+    4CUDIZZ+0SAf
+    -----END CERTIFICATE-----
