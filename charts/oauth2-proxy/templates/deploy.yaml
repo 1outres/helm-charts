@@ -48,7 +48,7 @@ spec:
         - containerPort: 4180
           protocol: TCP
         volumeMounts:
-        - mountPath: /etc/self-signed.pem
+        - mountPath: /etc/ssl/self-signed.pem
           name: self-signed-cert
           subPath: self-signed.pem
       volumes:
