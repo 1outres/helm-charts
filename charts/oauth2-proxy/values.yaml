@@ -1,0 +1,2 @@
+host: "google.com"
+issuer-url: "https://sso.cron.home/realms/infra"
