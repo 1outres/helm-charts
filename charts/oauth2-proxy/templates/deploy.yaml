@@ -20,7 +20,7 @@ spec:
         - --email-domain=cron.home
         - --insecure-oidc-allow-unverified-email
         - --cookie-domain={{ .Values.host }}
-        - --whitelist-domain={{ .Values..host }}
+        - --whitelist-domain={{ .Values.host }}
         - --upstream=http://any/
         - --http-address=0.0.0.0:4180
         - --provider-ca-file=/etc/ssl/self-signed.pem
