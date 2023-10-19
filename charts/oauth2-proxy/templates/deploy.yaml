@@ -24,6 +24,8 @@ spec:
         - --upstream=http://any/
         - --http-address=0.0.0.0:4180
         - --provider-ca-file=/etc/ssl/self-signed.pem
+        - --session-store-type=redis
+        - --redis-connection-url=redis://localhost:6379
         env:
         - name: OAUTH2_PROXY_CLIENT_ID
           valueFrom:
@@ -54,6 +56,8 @@ spec:
         - mountPath: /etc/ssl/self-signed.pem
           name: self-signed-cert
           subPath: self-signed.pem
+      - image: redis:6.2.6-alpine
+        name: redis
       volumes:
       - name: self-signed-cert
         configMap:
