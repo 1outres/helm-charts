@@ -17,7 +17,10 @@ spec:
       containers:
       - args:
         - --provider=oidc
-        - --email-domain=*
+        - --email-domain=cron.home
+        - --insecure-oidc-allow-unverified-email
+        - --cookie-domain=.cron.home
+        - --whitelist-domain=.cron.home
         - --upstream=http://any/
         - --http-address=0.0.0.0:4180
         - --provider-ca-file=/etc/ssl/self-signed.pem
