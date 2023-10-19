@@ -3,5 +3,5 @@ name: oauth2-proxy
 description: OAuth2 Proxy for Nginx Ingress Base
 
 type: application
-version: 1.0.4
+version: 1.0.5
 appVersion: "1.16.0"
