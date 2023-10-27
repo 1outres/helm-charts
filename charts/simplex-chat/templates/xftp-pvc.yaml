@@ -1,9 +1,9 @@
-{{- with .Values.pvc }}
+{{- with .Values.pvc.xftp}}
 {{- with .config }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: config-pvc
+  name: xftp-config-pvc
 spec:
   accessModes:
     - ReadWriteOnce
@@ -11,12 +11,12 @@ spec:
     requests:
       storage: {{ .size  }}
 {{- end }}
-{{- with .pvc }}
+{{- with .logs }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: logs-pvc
+  name: xftp-logs-pvc
 spec:
   accessModes:
     - ReadWriteOnce
@@ -24,4 +24,18 @@ spec:
     requests:
       storage: {{ .size}}
 {{- end }}
+{{- with .files }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: xftp-files-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .size}}
+{{- end }}
+
 {{- end }}

@@ -2,27 +2,55 @@ addr: ""
 password: ""
 
 sts:
-  image:
-    name: "simplexchat/smp-server"
-    tag: "latest"
-#   pullPolicy: "Always"
- resources:
-   requests:
-     cpu: "100m"
-     memory: "100Mi"
-   limits:
-     cpu: "1"
-     memory: "1Gi"
-# replicas: 1
-# env: []
-# targetPort: 5223
-# imagePullSecrets: "regcred"
+  smp:
+    image:
+      name: "simplexchat/smp-server"
+      tag: "latest"
+  #   pullPolicy: "Always"
+   resources:
+     requests:
+       cpu: "100m"
+       memory: "100Mi"
+     limits:
+       cpu: "1"
+       memory: "1Gi"
+  # replicas: 1
+  # env: []
+  # targetPort: 5223
+  # imagePullSecrets: "regcred"
+  xftp:
+    image:
+      name: "simplexchat/xftp-server"
+      tag: "latest"
+  #   pullPolicy: "Always"
+   resources:
+     requests:
+       cpu: "100m"
+       memory: "100Mi"
+     limits:
+       cpu: "1"
+       memory: "1Gi"
+  # replicas: 1
+  # env: []
+  # targetPort: 443
+  # imagePullSecrets: "regcred"
+
+
 
 pvc:
-  config:
-    size: 3Gi
-  logs:
-    size: 3Gi
+  smp:
+    config:
+      size: 1Gi
+    logs:
+      size: 3Gi
+  xftp:
+    config:
+      size: 1Gi
+    logs:
+      size: 3Gi
+    files:
+      size: 3Gi
+
 
 svc:
   type: "ClusterIP"

@@ -1,0 +1,61 @@
+{{ $values := .Values }}
+{{- with .Values.sts.xftp }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: "xftp-server"
+spec:
+  replicas: {{ .replicas | default 1 }}
+  serviceName: "simplex"
+  selector:
+    matchLabels:
+      app: "simplex"
+  template:
+    metadata:
+      labels:
+        app: "simplex"
+    spec:
+      containers:
+        - name: container
+          image: "{{ .image.name }}:{{ .image.tag }}"
+          imagePullPolicy: {{ .image.pullPolicy | default "Always" }}
+          volumeMounts:
+            - mountPath: /etc/opt/simplex-xftp
+              name: "config-volume"
+            - mountPath: /var/opt/simplex-xftp
+              name: "logs-volume"
+            - mountPath: /srv/xftp
+              name: "files-volume"
+          resources:
+            requests:
+              cpu: {{ .resources.requests.cpu }}
+              memory: {{ .resources.requests.memory }}
+            limits:
+              cpu: {{ .resources.limits.cpu }}
+              memory: {{ .resources.limits.memory }}
+          env:
+            - name: "ADDR"
+              value: {{ $values.addr }}
+            - name: "QUOTA"
+              value: {{ $values.pvc.xftp.files.size }}
+          {{- with .env }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+          - containerPort: {{ .targetPort | default 5223 }}
+      volumes:
+      - name: config-volume
+        persistentVolumeClaim:
+          claimName: "xftp-config-pvc"
+      - name: logs-volume
+        persistentVolumeClaim:
+          claimName: "xftp-logs-pvc"
+      - name: files-volume
+        persistentVolumeClaim:
+          claimName: "xftp-files-pvc"
+
+      {{- with .imagePullSecrets }}
+      imagePullSecrets:
+      - name: {{ . | quote  }}
+      {{- end }}
+{{- end }}

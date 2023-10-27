@@ -1,19 +1,19 @@
 {{ $values := .Values }}
-{{- with .Values.sts }}
+{{- with .Values.sts.smp }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: "smp-server"
 spec:
   replicas: {{ .replicas | default 1 }}
-  serviceName: "smp-server"
+  serviceName: "simplex"
   selector:
     matchLabels:
-      app: "smp-server"
+      app: "simplex"
   template:
     metadata:
       labels:
-        app: "smp-server"
+        app: "simplex"
     spec:
       containers:
         - name: container
@@ -44,10 +44,10 @@ spec:
       volumes:
       - name: config-volume
         persistentVolumeClaim:
-          claimName: "config-pvc"
+          claimName: "smp-config-pvc"
       - name: logs-volume
         persistentVolumeClaim:
-          claimName: "logs-pvc"
+          claimName: "smp-logs-pvc"
       {{- with .imagePullSecrets }}
       imagePullSecrets:
       - name: {{ . | quote  }}

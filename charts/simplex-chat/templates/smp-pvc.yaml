@@ -1,0 +1,27 @@
+{{- with .Values.pvc.smp }}
+{{- with .config }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: smp-config-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .size  }}
+{{- end }}
+{{- with .logs }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: smp-logs-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .size}}
+{{- end }}
+{{- end }}
