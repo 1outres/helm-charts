@@ -7,10 +7,12 @@ metadata:
     app: simplex
 spec:
   ports:
-  - port: 5223
-    targetPort: 5223
-  - port: 443
-    targetPort: 443
+    - name: smp
+      port: 5223
+      targetPort: 5223
+    - name: xftp
+      port: 443
+      targetPort: 443
   type: {{ .type | quote }}
   selector:
     app: simplex
