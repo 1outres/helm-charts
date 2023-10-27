@@ -9,7 +9,7 @@ spec:
   ports:
   - port: 5223
     targetPort: 5223
-  type: {{ type | quote }}
+  type: {{ .type | quote }}
   selector:
     app: smp-server
 {{- end }}
