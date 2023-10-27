@@ -1,4 +1,4 @@
-kind: v1
+apiVesrion: v1
 kind: ConfigMap
 metadata:
   name: xftp-cm
