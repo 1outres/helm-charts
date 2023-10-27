@@ -59,6 +59,9 @@ spec:
       - name: ini-volume
         configMap:
           name: xftp-cm
+          items:
+          - key: file-server.ini
+            path: file-server.ini
       {{- with .imagePullSecrets }}
       imagePullSecrets:
       - name: {{ . | quote  }}
