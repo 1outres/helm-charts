@@ -3,5 +3,5 @@ name: simplex-chat
 description: SimpleX Chat SMP Server Base
 
 type: application
-version: 1.0.5
+version: 1.0.6
 appVersion: "1.16.0"

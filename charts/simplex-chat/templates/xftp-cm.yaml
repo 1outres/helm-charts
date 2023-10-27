@@ -1,0 +1,20 @@
+kind: v1
+kind: ConfigMap
+metadata:
+  name: xftp-cm
+data:
+  file-server.ini: |-
+    [STORE_LOG]
+    enable: on
+    expire_files_hours: 48
+    log_stats: on
+    [AUTH]
+    new_files: on
+    create_password: {{ .Values.password }}
+    [TRANSPORT]
+    host: {{ .Values.addr  }}
+    port: 443
+    log_tls_errors: off
+    [FILES]
+    path: /srv/xftp/
+    storage_quota: 3gb
