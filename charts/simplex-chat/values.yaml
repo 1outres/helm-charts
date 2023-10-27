@@ -6,7 +6,7 @@ sts:
     image:
       name: "simplexchat/smp-server"
       tag: "latest"
-  #   pullPolicy: "Always"
+      pullPolicy: "Always"
    resources:
      requests:
        cpu: "100m"
@@ -22,7 +22,7 @@ sts:
     image:
       name: "simplexchat/xftp-server"
       tag: "latest"
-  #   pullPolicy: "Always"
+      pullPolicy: "Always"
    resources:
      requests:
        cpu: "100m"
