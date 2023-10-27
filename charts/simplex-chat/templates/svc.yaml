@@ -1,0 +1,15 @@
+{{- with .Values.svc }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: smp-server-svc
+  labels:
+    app: smp-server
+spec:
+  ports:
+  - port: 5223
+    targetPort: 5223
+  type: {{ type | quote }}
+  selector:
+    app: smp-server
+{{- end }}

@@ -1,0 +1,29 @@
+addr: ""
+password: ""
+
+sts:
+  image:
+    name: "simplexchat/smp-server"
+    tag: "latest"
+#   pullPolicy: "Always"
+# replicas: 1
+# resources:
+#   requests:
+#     cpu: "100m"
+#     memory: "100Mi"
+#   limits:
+#     cpu: "1"
+#     memory: "1Gi"
+# env: []
+# targetPort: 5223
+# imagePullSecrets: "regcred"
+
+pvc:
+  config:
+    size: 3Gi
+  logs:
+    size: 3G
+
+svc:
+  type: "ClusterIP"
+

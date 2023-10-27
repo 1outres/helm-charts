@@ -1,0 +1,55 @@
+{{ $values := .Values }}
+{{- with .Values.sts }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: "smp-server"
+spec:
+  replicas: {{ .replicas | default 1 }}
+  serviceName: "smp-server"
+  selector:
+    matchLabels:
+      app: "smp-server"
+  template:
+    metadata:
+      labels:
+        app: "smp-server"
+    spec:
+      containers:
+        - name: container
+          image: "{{ .image.name }}:{{ .image.tag }}"
+          imagePullPolicy: {{ .image.pullPolicy | default "Always" }}
+          volumeMounts:
+            - mountPath: /etc/opt/simplex
+              name: "config-volume"
+            - mountPath: /var/opt/simplex
+              name: "logs-volume"
+          resources:
+            requests:
+              cpu: {{ .resources.requests.cpu | default "100m"  }}
+              memory: {{ .resources.requests.memory | default "100Mi"  }}
+            limits:
+              cpu: {{ .resources.limits.cpu | default "1" }}
+              memory: {{ .resources.limits.memory | default "1Gi" }}
+          env:
+            - name: "ADDR"
+              value: {{ $values.addr }}
+            - name: "PASS"
+              value: {{ $values.password }}
+          {{- with .env }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+          - containerPort: {{ .targetPort | default 5223 }}
+      volumes:
+      - name: config-volume
+        persistentVolumeClaim:
+          claimName: "config-pvc"
+      - name: logs-volume
+        persistentVolumeClaim:
+          claimName: "logs-pvc"
+      {{- with .imagePullSecrets }}
+      imagePullSecrets:
+      - name: {{ . | quote  }}
+      {{- end }}
+{{- end }}
