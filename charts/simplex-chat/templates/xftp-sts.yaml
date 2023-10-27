@@ -26,9 +26,6 @@ spec:
               name: "logs-volume"
             - mountPath: /srv/xftp
               name: "files-volume"
-            - mountPath: /etc/opt/simplex-xftp/file-server.ini
-              subPath: file-server.ini
-              name: "ini-volume"
           resources:
             requests:
               cpu: {{ .resources.requests.cpu }}
@@ -56,12 +53,6 @@ spec:
       - name: files-volume
         persistentVolumeClaim:
           claimName: "xftp-files-pvc"
-      - name: ini-volume
-        configMap:
-          name: xftp-cm
-          items:
-          - key: file-server.ini
-            path: file-server.ini
       {{- with .imagePullSecrets }}
       imagePullSecrets:
       - name: {{ . | quote  }}
