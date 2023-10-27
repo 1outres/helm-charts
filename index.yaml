@@ -217,6 +217,16 @@ entries:
   simplex-chat:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-10-27T02:43:01.129456404Z"
+    description: SimpleX Chat SMP Server Base
+    digest: 527e1eb507e058b9bf92766f7c0e568e8459777b2f22792e768747cd53194fcc
+    name: simplex-chat
+    type: application
+    urls:
+    - https://github.com/cronree-91/helm-charts/releases/download/simplex-chat-1.0.9/simplex-chat-1.0.9.tgz
+    version: 1.0.9
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-10-27T02:35:55.088520248Z"
     description: SimpleX Chat SMP Server Base
     digest: 4ba41492826026ef0686bf73effee2c4b407d3ad2f85c8ad3facc74726e9bc2c
@@ -336,4 +346,4 @@ entries:
     urls:
     - https://github.com/cronree-91/helm-charts/releases/download/spring-app-1.0.0/spring-app-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-27T02:35:55.088598952Z"
+generated: "2023-10-27T02:43:01.129670104Z"
