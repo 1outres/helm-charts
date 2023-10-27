@@ -6,14 +6,14 @@ sts:
     name: "simplexchat/smp-server"
     tag: "latest"
 #   pullPolicy: "Always"
+ resources:
+   requests:
+     cpu: "100m"
+     memory: "100Mi"
+   limits:
+     cpu: "1"
+     memory: "1Gi"
 # replicas: 1
-# resources:
-#   requests:
-#     cpu: "100m"
-#     memory: "100Mi"
-#   limits:
-#     cpu: "1"
-#     memory: "1Gi"
 # env: []
 # targetPort: 5223
 # imagePullSecrets: "regcred"

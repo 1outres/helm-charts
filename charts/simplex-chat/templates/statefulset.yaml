@@ -26,11 +26,11 @@ spec:
               name: "logs-volume"
           resources:
             requests:
-              cpu: {{ .resources.requests.cpu | default "100m"  }}
-              memory: {{ .resources.requests.memory | default "100Mi"  }}
+              cpu: {{ .resources.requests.cpu }}
+              memory: {{ .resources.requests.memory }}
             limits:
-              cpu: {{ .resources.limits.cpu | default "1" }}
-              memory: {{ .resources.limits.memory | default "1Gi" }}
+              cpu: {{ .resources.limits.cpu }}
+              memory: {{ .resources.limits.memory }}
           env:
             - name: "ADDR"
               value: {{ $values.addr }}
