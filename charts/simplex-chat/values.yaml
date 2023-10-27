@@ -22,7 +22,7 @@ pvc:
   config:
     size: 3Gi
   logs:
-    size: 3G
+    size: 3Gi
 
 svc:
   type: "ClusterIP"
