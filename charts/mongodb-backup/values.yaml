@@ -1,0 +1,12 @@
+image:
+  name: "registry.cron.home/mongodb-backup"
+  tag: "latest"
+
+onedrive:
+  secret: ""
+  key: ""
+
+backups:
+  - name: ""
+    cron: ""
+    secret: ""

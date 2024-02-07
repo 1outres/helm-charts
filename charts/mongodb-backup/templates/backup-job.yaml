@@ -1,0 +1,35 @@
+{{ $values := .Values }}
+{{- range .Values.backups }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .name }}-backup-job
+spec:
+  schedule: {{ .cron | quote }}
+  timeZone: 'Asia/Tokyo'
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: container
+            image: "{{ $values.image.name }}:{{ $values.image.tag }}"
+            imagePullPolicy: Always
+            env:
+              - name: "NAME"
+                value: {{ .name | quote }}
+              - name: "MONGODB_URI"
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .secret | quote }}
+                    key: connectionString.standardSrv
+              - name: "ONEDRIVE_CONFIG"
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ $values.onedrive.secret | quote }}
+                    key: {{ $values.onedrive.key | quote }}
+          restartPolicy: OnFailure
+          imagePullSecrets:
+            - name: regcred
+{{- end }}
+
