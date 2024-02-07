@@ -308,6 +308,16 @@ entries:
   spring-app:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-02-07T06:07:24.775788932Z"
+    description: Spring Application Base
+    digest: 2ed68f0a55252a343b27da3f90d6093da709e05d98c77b1eeb4d26da079d71ca
+    name: spring-app
+    type: application
+    urls:
+    - https://github.com/cronree-91/helm-charts/releases/download/spring-app-1.0.5/spring-app-1.0.5.tgz
+    version: 1.0.5
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-10-24T02:41:16.889358987Z"
     description: Spring Application Base
     digest: 447bcea8dc369830ea5bfc4b45bea2cd01c6763dbd97a0f7faffef56561a780f
@@ -356,4 +366,4 @@ entries:
     urls:
     - https://github.com/cronree-91/helm-charts/releases/download/spring-app-1.0.0/spring-app-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-27T02:47:47.31913942Z"
+generated: "2024-02-07T06:07:24.775873902Z"
