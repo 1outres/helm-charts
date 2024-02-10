@@ -75,6 +75,16 @@ entries:
   mongodb-backup:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-02-10T20:42:50.257928473Z"
+    description: Auto MongoDB Backup
+    digest: 88568344b0d014c9dc47c5bc9f635b25ca04185b8b973021c0b10ccb83af2f91
+    name: mongodb-backup
+    type: application
+    urls:
+    - https://github.com/cronree-91/helm-charts/releases/download/mongodb-backup-1.0.2/mongodb-backup-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-02-07T06:11:40.304904805Z"
     description: Auto MongoDB Backup
     digest: 45e12b143b3826b2bcc69821593d4e88b20479cd541a18be3466880c8ed90bfa
@@ -377,4 +387,4 @@ entries:
     urls:
     - https://github.com/cronree-91/helm-charts/releases/download/spring-app-1.0.0/spring-app-1.0.0.tgz
     version: 1.0.0
-generated: "2024-02-07T06:11:40.304993419Z"
+generated: "2024-02-10T20:42:50.258024061Z"
