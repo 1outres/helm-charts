@@ -17,7 +17,7 @@ spec:
       containers:
       - args:
         - --provider=oidc
-        - --email-domain=cron.home
+        - --email-domain=*
         - --insecure-oidc-allow-unverified-email
         - --cookie-domain={{ .Values.host }}
         - --whitelist-domain={{ .Values.host }}
