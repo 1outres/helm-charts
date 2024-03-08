@@ -26,6 +26,9 @@ spec:
         - --provider-ca-file=/etc/ssl/self-signed.pem
         - --session-store-type=redis
         - --redis-connection-url=redis://localhost:6379
+        {{- with .Values.alloed_role }}
+        - --allowed-role={{ . }}
+        {{- end }}
         env:
         - name: OAUTH2_PROXY_CLIENT_ID
           valueFrom:
