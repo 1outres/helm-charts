@@ -157,6 +157,16 @@ entries:
   oauth2-proxy:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-03-08T00:20:29.935251942Z"
+    description: OAuth2 Proxy for Nginx Ingress Base
+    digest: 2dcce89312e20ce3d275e60ba5932fc55944155338282c7d5065e137349065f8
+    name: oauth2-proxy
+    type: application
+    urls:
+    - https://github.com/cronree-91/helm-charts/releases/download/oauth2-proxy-1.0.11/oauth2-proxy-1.0.11.tgz
+    version: 1.0.11
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-03-08T00:05:25.629233725Z"
     description: OAuth2 Proxy for Nginx Ingress Base
     digest: c358cce8eef76bca738d765d10959cf3af1a7b49eb4074744fc7b438af14093c
@@ -417,4 +427,4 @@ entries:
     urls:
     - https://github.com/cronree-91/helm-charts/releases/download/spring-app-1.0.0/spring-app-1.0.0.tgz
     version: 1.0.0
-generated: "2024-03-08T00:05:25.629317021Z"
+generated: "2024-03-08T00:20:29.935357288Z"
