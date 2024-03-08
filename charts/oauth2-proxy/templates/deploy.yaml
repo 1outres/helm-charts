@@ -26,7 +26,7 @@ spec:
         - --provider-ca-file=/etc/ssl/self-signed.pem
         - --session-store-type=redis
         - --redis-connection-url=redis://localhost:6379
-        {{- with .Values.alloed_role }}
+        {{- with .Values.allowed_role }}
         - --allowed-role={{ . }}
         {{- end }}
         env:
