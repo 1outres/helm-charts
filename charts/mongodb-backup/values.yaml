@@ -1,5 +1,5 @@
 image:
-  name: "registry.cron.home/mongodb-backup"
+  name: "registry.loutres.internal/mongodb-backup"
   tag: "latest"
 
 onedrive:
