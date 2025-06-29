@@ -27,6 +27,42 @@ spec:
       serviceAccountName: {{ include "refmd.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: db-url-builder
+          image: busybox:latest
+          command:
+            - sh
+            - -c
+            - |
+              {{- if or .Values.postgresql.enabled .Values.externalDatabase.existingSecret }}
+              # Build DATABASE_URL dynamically
+              DB_PASSWORD=$(cat /etc/db-secret/{{ include "refmd.postgresqlPasswordKey" . }})
+              DB_URL="postgresql://{{ include "refmd.postgresqlUsername" . }}:${DB_PASSWORD}@{{ include "refmd.postgresqlHost" . }}:{{ include "refmd.postgresqlPort" . }}/{{ include "refmd.postgresqlDatabase" . }}"
+              echo "$DB_URL" > /shared/database-url
+              echo "Database URL configured"
+              {{- else }}
+              # Use static DATABASE_URL from secret
+              echo "Using static DATABASE_URL from secret"
+              {{- end }}
+          volumeMounts:
+            {{- if or .Values.postgresql.enabled .Values.externalDatabase.existingSecret }}
+            - name: db-secret
+              mountPath: /etc/db-secret
+              readOnly: true
+            - name: shared-data
+              mountPath: /shared
+            {{- end }}
+          {{- if or .Values.postgresql.enabled .Values.externalDatabase.existingSecret }}
+          env:
+            - name: DB_HOST
+              value: {{ include "refmd.postgresqlHost" . | quote }}
+            - name: DB_PORT
+              value: {{ include "refmd.postgresqlPort" . | quote }}
+            - name: DB_USER
+              value: {{ include "refmd.postgresqlUsername" . | quote }}
+            - name: DB_NAME
+              value: {{ include "refmd.postgresqlDatabase" . | quote }}
+          {{- end }}
       containers:
         - name: api
           securityContext:
@@ -40,15 +76,23 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "refmd.fullname" . }}
+            {{- $databaseUrl := include "refmd.databaseUrl" . }}
+            {{- if $databaseUrl }}
             - secretRef:
                 name: {{ include "refmd.fullname" . }}
-          {{- if and (not .Values.postgresql.enabled) .Values.externalDatabase.existingSecret }}
-          env:
-            - name: DATABASE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.externalDatabase.existingSecret }}
-                  key: {{ .Values.externalDatabase.existingSecretPasswordKey | default "password" }}
+            {{- end }}
+          {{- if or .Values.postgresql.enabled .Values.externalDatabase.existingSecret }}
+          command:
+            - sh
+            - -c
+            - |
+              if [ -f /shared/database-url ]; then
+                export DATABASE_URL=$(cat /shared/database-url)
+                echo "Using dynamic DATABASE_URL"
+              else
+                echo "No dynamic DATABASE_URL found, using static configuration"
+              fi
+              exec /app/api
           {{- end }}
           livenessProbe:
             httpGet:
@@ -71,6 +115,11 @@ spec:
             - name: storage
               mountPath: {{ .Values.refmd.api.uploadDir }}
             {{- end }}
+            {{- if or .Values.postgresql.enabled .Values.externalDatabase.existingSecret }}
+            - name: shared-data
+              mountPath: /shared
+              readOnly: true
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
@@ -78,6 +127,13 @@ spec:
         - name: storage
           persistentVolumeClaim:
             claimName: {{ include "refmd.fullname" . }}-storage
+        {{- end }}
+        {{- if or .Values.postgresql.enabled .Values.externalDatabase.existingSecret }}
+        - name: shared-data
+          emptyDir: {}
+        - name: db-secret
+          secret:
+            secretName: {{ include "refmd.postgresqlSecretName" . }}
         {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:

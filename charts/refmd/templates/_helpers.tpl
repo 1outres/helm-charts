@@ -94,17 +94,77 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-Database connection string
+PostgreSQL host name
+*/}}
+{{- define "refmd.postgresqlHost" -}}
+{{- if .Values.postgresql.enabled }}
+{{- printf "%s-postgresql" (include "refmd.fullname" .) }}
+{{- else }}
+{{- .Values.externalDatabase.host }}
+{{- end }}
+{{- end }}
+
+{{/*
+PostgreSQL port
+*/}}
+{{- define "refmd.postgresqlPort" -}}
+{{- if .Values.postgresql.enabled }}
+5432
+{{- else }}
+{{- .Values.externalDatabase.port }}
+{{- end }}
+{{- end }}
+
+{{/*
+PostgreSQL secret name for password
+*/}}
+{{- define "refmd.postgresqlSecretName" -}}
+{{- if .Values.postgresql.enabled }}
+{{- printf "%s-postgresql" (include "refmd.fullname" .) }}
+{{- else }}
+{{- .Values.externalDatabase.existingSecret }}
+{{- end }}
+{{- end }}
+
+{{/*
+PostgreSQL secret key for password
+*/}}
+{{- define "refmd.postgresqlPasswordKey" -}}
+{{- if .Values.postgresql.enabled }}
+postgres-password
+{{- else }}
+{{- .Values.externalDatabase.existingSecretPasswordKey }}
+{{- end }}
+{{- end }}
+
+{{/*
+PostgreSQL username
+*/}}
+{{- define "refmd.postgresqlUsername" -}}
+{{- if .Values.postgresql.enabled }}
+{{- .Values.postgresql.auth.username }}
+{{- else }}
+{{- .Values.externalDatabase.username }}
+{{- end }}
+{{- end }}
+
+{{/*
+PostgreSQL database name
+*/}}
+{{- define "refmd.postgresqlDatabase" -}}
+{{- if .Values.postgresql.enabled }}
+{{- .Values.postgresql.auth.database }}
+{{- else }}
+{{- .Values.externalDatabase.database }}
+{{- end }}
+{{- end }}
+
+{{/*
+Database connection string (used only for external databases with static password)
 */}}
 {{- define "refmd.databaseUrl" -}}
-{{- if .Values.postgresql.enabled }}
-{{- printf "postgresql://%s:%s@%s-postgresql:5432/%s" .Values.postgresql.auth.username .Values.postgresql.auth.password (include "refmd.fullname" .) .Values.postgresql.auth.database }}
-{{- else }}
-{{- if .Values.externalDatabase.existingSecret }}
-{{- printf "postgresql://%s:${DATABASE_PASSWORD}@%s:%d/%s" .Values.externalDatabase.username .Values.externalDatabase.host (.Values.externalDatabase.port | int) .Values.externalDatabase.database }}
-{{- else }}
+{{- if and (not .Values.postgresql.enabled) (not .Values.externalDatabase.existingSecret) }}
 {{- printf "postgresql://%s:%s@%s:%d/%s" .Values.externalDatabase.username .Values.externalDatabase.password .Values.externalDatabase.host (.Values.externalDatabase.port | int) .Values.externalDatabase.database }}
-{{- end }}
 {{- end }}
 {{- end }}
 
