@@ -1,0 +1,146 @@
+# Default values for refmd.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  api:
+    repository: ghcr.io/munenick/refmd-api
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  app:
+    repository: ghcr.io/munenick/refmd-app
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  api:
+    port: 8888
+  app:
+    port: 3000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: refmd.local
+      paths:
+        - path: /
+          pathType: Prefix
+          service: app
+        - path: /api
+          pathType: Prefix
+          service: api
+        - path: /socket.io
+          pathType: Prefix
+          service: api
+  tls: []
+  #  - secretName: refmd-tls
+  #    hosts:
+  #      - refmd.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# RefMD specific configuration
+refmd:
+  # API configuration
+  api:
+    jwtSecret: "dev-secret-key-change-in-production"
+    jwtExpiry: 3600
+    refreshTokenExpiry: 604800
+    bcryptCost: 12
+    uploadMaxSize: 10485760
+    uploadDir: "/app/refmd"
+    gitSyncEnabled: true
+    gitAutoSync: false
+    gitSyncInterval: 300
+    signupEnabled: true
+
+  # App configuration
+  app:
+    siteUrl: "http://localhost:3000"
+    signupEnabled: true
+
+# PostgreSQL configuration
+postgresql:
+  enabled: true
+  auth:
+    postgresPassword: "refmd"
+    username: "refmd"
+    password: "refmd"
+    database: "refmd"
+  primary:
+    persistence:
+      enabled: true
+      size: 8Gi
+
+# External PostgreSQL configuration (when postgresql.enabled is false)
+externalDatabase:
+  host: localhost
+  port: 5432
+  username: refmd
+  password: refmd
+  database: refmd
+  existingSecret: ""
+  existingSecretPasswordKey: ""
+
+# Persistence for uploaded files
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 8Gi
+  # storageClass: ""
