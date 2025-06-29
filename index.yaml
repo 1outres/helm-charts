@@ -288,6 +288,21 @@ entries:
   refmd:
   - apiVersion: v2
     appVersion: 0.0.1-alpha
+    created: "2025-06-29T10:43:07.520073932Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: ~12.0.0
+    description: A Helm chart for RefMD - Real-time Collaborative Markdown Editor
+    digest: a3c88795a8cb4d424acd6b03d3af46a677a33b1ea50cfa9c1fc239dea0fcf5e3
+    name: refmd
+    type: application
+    urls:
+    - https://github.com/1outres/helm-charts/releases/download/refmd-0.1.7/refmd-0.1.7.tgz
+    version: 0.1.7
+  - apiVersion: v2
+    appVersion: 0.0.1-alpha
     created: "2025-06-29T10:19:43.199325972Z"
     dependencies:
     - condition: postgresql.enabled
@@ -528,4 +543,4 @@ entries:
     urls:
     - https://github.com/cronree-91/helm-charts/releases/download/spring-app-1.0.0/spring-app-1.0.0.tgz
     version: 1.0.0
-generated: "2025-06-29T10:19:43.199587133Z"
+generated: "2025-06-29T10:43:07.520166746Z"
