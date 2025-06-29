@@ -169,12 +169,24 @@ Database connection string (used only for external databases with static passwor
 {{- end }}
 
 {{/*
+Protocol (http or https) based on TLS configuration
+*/}}
+{{- define "refmd.protocol" -}}
+{{- if and .Values.ingress.enabled .Values.ingress.tls }}
+https
+{{- else }}
+http
+{{- end }}
+{{- end }}
+
+{{/*
 API URL for app
 */}}
 {{- define "refmd.apiUrl" -}}
 {{- if .Values.ingress.enabled }}
 {{- $host := (first .Values.ingress.hosts).host }}
-{{- printf "http://%s/api" $host }}
+{{- $protocol := include "refmd.protocol" . }}
+{{- printf "%s://%s/api" $protocol $host }}
 {{- else }}
 {{- printf "http://%s-api:%d/api" (include "refmd.fullname" .) (.Values.service.api.port | int) }}
 {{- end }}
@@ -186,7 +198,8 @@ Socket URL for app
 {{- define "refmd.socketUrl" -}}
 {{- if .Values.ingress.enabled }}
 {{- $host := (first .Values.ingress.hosts).host }}
-{{- printf "http://%s" $host }}
+{{- $protocol := include "refmd.protocol" . }}
+{{- printf "%s://%s" $protocol $host }}
 {{- else }}
 {{- printf "http://%s-api:%d" (include "refmd.fullname" .) (.Values.service.api.port | int) }}
 {{- end }}
@@ -198,7 +211,8 @@ Site URL for app
 {{- define "refmd.siteUrl" -}}
 {{- if .Values.ingress.enabled }}
 {{- $host := (first .Values.ingress.hosts).host }}
-{{- printf "http://%s" $host }}
+{{- $protocol := include "refmd.protocol" . }}
+{{- printf "%s://%s" $protocol $host }}
 {{- else }}
 {{- .Values.refmd.app.siteUrl }}
 {{- end }}
