@@ -92,7 +92,7 @@ spec:
               else
                 echo "No dynamic DATABASE_URL found, using static configuration"
               fi
-              exec /app/api
+              exec /usr/local/bin/refmd-api
           {{- end }}
           livenessProbe:
             httpGet:
