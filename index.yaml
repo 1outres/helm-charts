@@ -285,6 +285,22 @@ entries:
     urls:
     - https://github.com/cronree-91/helm-charts/releases/download/oauth2-proxy-1.0.0/oauth2-proxy-1.0.0.tgz
     version: 1.0.0
+  refmd:
+  - apiVersion: v2
+    appVersion: 0.0.1-alpha
+    created: "2025-06-29T09:04:39.804829787Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: ~12.0.0
+    description: A Helm chart for RefMD - Real-time Collaborative Markdown Editor
+    digest: 1648c8ae10cae32c2de53596acd7d034912fbe505391092f88a2e70a41f22181
+    name: refmd
+    type: application
+    urls:
+    - https://github.com/1outres/helm-charts/releases/download/refmd-0.1.0/refmd-0.1.0.tgz
+    version: 0.1.0
   simplex-chat:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -437,4 +453,4 @@ entries:
     urls:
     - https://github.com/cronree-91/helm-charts/releases/download/spring-app-1.0.0/spring-app-1.0.0.tgz
     version: 1.0.0
-generated: "2024-04-28T00:47:46.989788931Z"
+generated: "2025-06-29T09:04:39.804909586Z"
