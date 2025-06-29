@@ -3,7 +3,7 @@ name: refmd
 description: A Helm chart for RefMD - Real-time Collaborative Markdown Editor
 
 type: application
-version: 0.1.7
+version: 0.1.8
 appVersion: "0.0.1-alpha"
 
 dependencies:

@@ -16,7 +16,7 @@ data:
   GIT_AUTO_SYNC: {{ .Values.refmd.api.gitAutoSync | quote }}
   GIT_SYNC_INTERVAL: {{ .Values.refmd.api.gitSyncInterval | int | quote }}
   SIGNUP_ENABLED: {{ .Values.refmd.api.signupEnabled | quote }}
-  FRONTEND_URL: {{ include "refmd.siteUrl" . | quote }}
+  FRONTEND_URL: {{ regexReplaceAll "^[\n\r]+" (include "refmd.siteUrl" .) "" | quote }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -26,7 +26,7 @@ metadata:
     {{- include "refmd.app.labels" . | nindent 4 }}
 data:
   # App configuration
-  NEXT_PUBLIC_API_URL: {{ include "refmd.apiUrl" . | quote }}
-  NEXT_PUBLIC_SOCKET_URL: {{ include "refmd.socketUrl" . | quote }}
-  NEXT_PUBLIC_SITE_URL: {{ include "refmd.siteUrl" . | quote }}
+  NEXT_PUBLIC_API_URL: {{ regexReplaceAll "^[\n\r]+" (include "refmd.apiUrl" .) "" | quote }}
+  NEXT_PUBLIC_SOCKET_URL: {{ regexReplaceAll "^[\n\r]+" (include "refmd.socketUrl" .) "" | quote }}
+  NEXT_PUBLIC_SITE_URL: {{ regexReplaceAll "^[\n\r]+" (include "refmd.siteUrl" .) "" | quote }}
   NEXT_PUBLIC_SIGNUP_ENABLED: {{ .Values.refmd.app.signupEnabled | quote }}
